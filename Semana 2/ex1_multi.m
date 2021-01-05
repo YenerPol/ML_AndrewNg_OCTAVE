@@ -103,8 +103,14 @@ fprintf('\n');
 % Estimate the price of a 1650 sq-ft, 3 br house
 % ====================== YOUR CODE HERE ======================
 % Recall that the first column of X is all-ones. Thus, it does
-% not need to be normalized.
-price = 0; % You should change this
+% not need to be normalized
+X_predict = [1650, 3];
+    % Normalizing
+    for i=1:size(X_predict, 2)
+        X_predict(i) = (X_predict(i) - mu(i))/sigma(i);
+    end
+X_predict = [1, X_predict];
+price = sum(theta'.*X_predict, 2); % You should change this
 
 
 % ============================================================
@@ -149,7 +155,7 @@ fprintf('\n');
 
 % Estimate the price of a 1650 sq-ft, 3 br house
 % ====================== YOUR CODE HERE ======================
-price = 0; % You should change this
+price = theta'*[1; 1650; 3]; % You should change this
 
 
 % ============================================================
