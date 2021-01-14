@@ -36,17 +36,22 @@ grad = zeros(size(theta));
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
 
+hx = sigmoid(X * theta);
+m = length(X);
 
+J_NoReg = (-y' * log(hx) - (1 - y')*log(1 - hx)) / m;
+Reg_cost = (lambda/(2*m))*sum(theta(2:end).^2);
 
+J = J_NoReg + Reg_cost;
 
-
-
-
-
+grad = X' * (hx - y) / m;
+temp = theta; 
+temp(1) = 0;   % because we don't add anything for j = 0  
+grad = grad + (lambda/m) .* temp ;
 
 
 % =============================================================
 
-grad = grad(:);
+%grad = grad(:);
 
 end

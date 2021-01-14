@@ -20,6 +20,8 @@ grad = zeros(size(theta));
 % Note: grad should have the same dimensions as theta
 %
 
+% ==== For loop version ====
+#{
 for i=1:m
   gz = sigmoid(X(i,:)*theta);
   J = J + (-1/m)*( y(i)*log(gz) + (1-y(i)) * log(1-gz) );       %perfecto
@@ -31,6 +33,15 @@ for i=1:m
           grad(j) = grad(j) + (1/m) * (gz-y(i)) * X(i,j) ;       %perfecto
       endfor
 endfor
+#} 
+
+% ==== Vectorized version ====
+
+hx = sigmoid(X * theta);
+m = length(X);
+
+J = (-y' * log(hx) - (1 - y')*log(1 - hx)) / m;
+grad = X' * (hx - y) / m;
 
 
 % =============================================================
