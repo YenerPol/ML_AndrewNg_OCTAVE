@@ -6,9 +6,12 @@ function p = predict(Theta1, Theta2, X)
 % Useful values
 m = size(X, 1);
 num_labels = size(Theta2, 1);
-
+m = size(X, 1);
 % You need to return the following variables correctly 
 p = zeros(size(X, 1), 1);
+
+% Add ones to the X data matrix
+X = [ones(m, 1) X];
 
 % ====================== YOUR CODE HERE ======================
 % Instructions: Complete the following code to make predictions using
@@ -21,8 +24,21 @@ p = zeros(size(X, 1), 1);
 %       can use max(A, [], 2) to obtain the max for each row.
 %
 
+prob = p;
+
+for i = 1:m    
+    z2 =  X(i,:) * Theta1'; 
+    a2 = sigmoid( z2 ); 
+    n = size(a2, 1);
+    a2 = [ones(n, 1) a2];
+    for c = 1:n
+        z3 = a2(c,:) * Theta2';
+        [prob(i),p(i)] = max( sigmoid( z3 ) );
+    endfor  
+endfor
 
 
+ 
 
 
 
